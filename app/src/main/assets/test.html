@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试</title>
+    <style>
+        a{
+            color:green;
+            font-weight:900;
+            font-size:80px;
+            height:400;
+            width:500;
+        }
+
+        button{
+            color:green;
+            font-size:50px;
+            height:300;
+            width:400;
+        }
+    </style>
+    <script>
+        //JS调用Java方法，js_obj为网页中带有Java方法的对象，可以自定义但是要和注入的名字一样
+        function myFunction() {
+            js_obj.showToast("显示Toast");
+        }
+    </script>
+</head>
+<br>
+
+<a href="file:///android_asset/test_1.html"> 链 接 </a> </br>
+<button onclick="myFunction()" >显示Toast</button>
+</body>
+</html>
