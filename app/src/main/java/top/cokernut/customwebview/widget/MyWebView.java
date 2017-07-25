@@ -20,6 +20,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import java.util.List;
+
 public class MyWebView extends WebView {
 
     private WebViewInterface mWebViewInterface;
@@ -29,6 +31,8 @@ public class MyWebView extends WebView {
     private final static int FILE_CHOOSER_RESULT_CODE = 10000;
     private Context mContext;
     private Activity mActivity;
+    private boolean isChangeHref;
+
 
     public MyWebView(Activity activity) {
         super(activity);
@@ -45,11 +49,23 @@ public class MyWebView extends WebView {
         mOnScrollListener = onScrollListener;
     }
 
+    public void setIsChangeHref(boolean b) {
+        isChangeHref = b;
+    }
+
     //回调方法接口
     public interface WebViewInterface {
         void showToast(String msg);
 
         void getTitle(String title);
+
+        void onPageFinish(List<String> metas);
+
+        void onPageStart();
+
+        void showCloseBtn(boolean flag);
+
+        void onTitleProperty(List<String> titles);
     }
 
     public interface OnScrollListener {
@@ -154,14 +170,28 @@ public class MyWebView extends WebView {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            //view.loadUrl("javascript:window.js_obj.getSource(document.head.innerHTML.toString());");
+            view.loadUrl("javascript:window.js_obj.getSource(document.head.innerHTML.match(/<meta.*name=\"okwei:app:menu\".*?>/g).toString());");
+            view.loadUrl("javascript:window.js_obj.getTitlePropertySource(document.head.innerHTML.match(/<meta.*name=\"okewi:app:titlebar\".*?>/g).toString());");
+            if (isChangeHref) {
+                view.loadUrl("javascript:var allLinks = document.getElementsByTagName('a');var num; if (allLinks) {var i;for (i=0; i<allLinks.length; i++) {" +
+                        "var link = allLinks[i];var target = link.getAttribute('target'); if (target && target == '_blank') {" +
+                        "link.setAttribute('target','_self');link.href = 'newtab:'+link.href;num++}}}console.log(num);");
+            }
+            if (view.canGoBack()) {
+                mWebViewInterface.showCloseBtn(true);
+            } else {
+                mWebViewInterface.showCloseBtn(false);
+            }
             super.onPageFinished(view, url);
             //实现自己的逻辑
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            //实现自己的逻辑
+            mWebViewInterface.onPageStart();
             super.onPageStarted(view, url, favicon);
+            //实现自己的逻辑
         }
 
         @Override

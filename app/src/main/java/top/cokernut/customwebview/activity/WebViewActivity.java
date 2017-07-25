@@ -14,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import top.cokernut.customwebview.R;
 import top.cokernut.customwebview.widget.MyWebView;
 
@@ -99,6 +101,26 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
         message.what = SET_TITLE;
         message.obj = title;
         mHandler.sendMessage(message);
+    }
+
+    @Override
+    public void onPageFinish(List<String> metas) {
+
+    }
+
+    @Override
+    public void onPageStart() {
+
+    }
+
+    @Override
+    public void showCloseBtn(boolean flag) {
+
+    }
+
+    @Override
+    public void onTitleProperty(List<String> titles) {
+
     }
 
     private void setMyTitle(String title) {
