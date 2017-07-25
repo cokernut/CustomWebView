@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+               // intent.putExtra("url", "file:///android_asset/test.html");
                 intent.putExtra("url", "file:///android_asset/test.html");
                 startActivity(intent);
             }

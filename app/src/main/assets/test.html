@@ -21,7 +21,10 @@
     <script>
         //JS调用Java方法，js_obj为网页中带有Java方法的对象，可以自定义但是要和注入的名字一样
         function myFunction() {
-            js_obj.showToast("显示Toast");
+            window.js_obj.showToast("显示Toast");
+        }
+        function showAlert() {
+            alert("显示Alert");
         }
     </script>
 </head>
