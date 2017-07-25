@@ -19,7 +19,7 @@
         }
     </style>
     <script>
-        //JS调用Java方法，js_obj为网页中带有Java方法的对象，可以自定义但是要和注入的名字一样
+        //JS调用Java方法，js_obj（window.js_obj）为网页中带有Java方法的对象，可以自定义但是要和注入的名字一样
         function myFunction() {
             window.js_obj.showToast("js调用原生显示toast");
         }
