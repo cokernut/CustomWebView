@@ -151,14 +151,14 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
                 if (Build.VERSION.SDK_INT > 18) {
                     // 因为该方法的执行不会使页面刷新，而第一种方法（loadUrl ）的执行则会。
                     //Android 4.4 后才可使用
-                    mWebView.evaluateJavascript("javascript:showAlert()", new ValueCallback<String>() {
+                    mWebView.evaluateJavascript("javascript:showAlert('原生调用js')", new ValueCallback<String>() {
                         @Override
                         public void onReceiveValue(String value) {
                             //此处为 js 返回的结果
                         }
                     });
                 } else {
-                    mWebView.loadUrl("javascript:showAlert()");
+                    mWebView.loadUrl("javascript:showAlert('原生调用js')");
                 }
                 break;
         }
