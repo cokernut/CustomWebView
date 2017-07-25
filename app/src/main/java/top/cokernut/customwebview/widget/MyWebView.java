@@ -1,11 +1,14 @@
 package top.cokernut.customwebview.widget;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -21,6 +24,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import java.util.List;
+
+import top.cokernut.customwebview.util.HtmlUtil;
 
 public class MyWebView extends WebView {
 
@@ -121,7 +126,7 @@ public class MyWebView extends WebView {
         super.onScrollChanged(l, t, oldl, oldt);
         if (this.getScrollY() <= 0) {
             mOnScrollListener.onTop();
-        } else if(this.getContentHeight()*this.getScale()-(this.getHeight()+this.getScrollY())==0){
+        } else if(Math.abs(this.getContentHeight()*this.getScale()-(this.getHeight()+this.getScrollY())) < 1){
             //已经处于底端
             //mOnScrollListener.onBottom();
         } else {
@@ -153,19 +158,54 @@ public class MyWebView extends WebView {
         public void showToast(String msg) {
             mWebViewInterface.showToast(msg);
         }
+
+      @JavascriptInterface
+      public void getSource(String html) {
+          List<String> metas = HtmlUtil.getMetas(html);
+          if (metas!=null || metas.size() == 0) {
+              mWebViewInterface.onPageFinish(metas);
+          }
+      }
+      public void getTitlePropertySource(String html) {
+          List<String> titles = HtmlUtil.getTitleProperty(html);
+          if (titles!=null || titles.size() == 0) {
+              mWebViewInterface.onTitleProperty(titles);
+          }
+      }
     }
 
     private class MyWebViewClient extends WebViewClient {
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             //拦截url进行处理，如果不需要webview后续处理就return true
+            String tag = "newtab:";
+            if (request.getUrl().toString().startsWith(tag)) {
+                //逻辑
+                return true;
+            }
             return super.shouldOverrideUrlLoading(view, request);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            String tag = "newtab:";
+            if (url.startsWith(tag)) {
+                //逻辑
+                return true;
+            }
+            return super.shouldOverrideUrlLoading(view, url);
         }
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             //拦截资源请求进行处理，如果返回null则正常处理
             return super.shouldInterceptRequest(view, request);
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+            return super.shouldInterceptRequest(view, url);
         }
 
         @Override

@@ -105,7 +105,7 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
 
     @Override
     public void onPageFinish(List<String> metas) {
-
+        mRefreshSRL.setRefreshing(false);
     }
 
     @Override
