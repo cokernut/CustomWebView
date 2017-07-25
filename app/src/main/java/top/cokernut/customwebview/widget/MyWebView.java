@@ -105,6 +105,9 @@ public class MyWebView extends WebView {
         super.onScrollChanged(l, t, oldl, oldt);
         if (this.getScrollY() <= 0) {
             mOnScrollListener.onTop();
+        } else if(this.getContentHeight()*this.getScale()-(this.getHeight()+this.getScrollY())==0){
+            //已经处于底端
+            mOnScrollListener.onBottom();
         } else {
             mOnScrollListener.onCenter();
         }
