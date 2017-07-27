@@ -69,6 +69,8 @@ public class MyWebView extends WebView {
         void showCloseBtn(boolean flag);
 
         void onTitleProperty(List<String> titles);
+
+        void error();
     }
 
     public interface OnScrollListener {
@@ -195,6 +197,7 @@ public class MyWebView extends WebView {
             return super.shouldOverrideUrlLoading(view, url);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             //拦截资源请求进行处理，如果返回null则正常处理
@@ -235,12 +238,14 @@ public class MyWebView extends WebView {
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             //错误处理
+            mWebViewInterface.error();
             super.onReceivedError(view, request, error);
         }
 
         @Override
         public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
             //http错误处理
+            mWebViewInterface.error();
             super.onReceivedHttpError(view, request, errorResponse);
         }
     }

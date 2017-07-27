@@ -124,6 +124,11 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
 
     }
 
+    @Override
+    public void error() {
+        
+    }
+
     private void setMyTitle(String title) {
         mTitleTv.setText(title);
     }
