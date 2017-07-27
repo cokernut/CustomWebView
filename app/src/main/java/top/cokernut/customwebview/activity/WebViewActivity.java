@@ -63,6 +63,7 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
         mRefreshSRL.setColorSchemeColors(Color.parseColor("#3FF43F"),Color.parseColor("#709090"));
         // 设置下拉进度的背景颜色，默认就是白色的
         mRefreshSRL.setProgressBackgroundColorSchemeResource(android.R.color.white);
+        mRefreshSRL.setOnRefreshListener(this);
         mWebView.setWebViewInterface(this);
         mWebView.setOnScrollListener(new MyWebView.OnScrollListener() {
             @Override
