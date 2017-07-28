@@ -117,7 +117,8 @@ public class ExWebView extends WebView {
 //        ws.setDefaultTextEncodingName("utf-8");//设置编码格式
         // 修改ua标识使得web端正确判断
         String ua = ws.getUserAgentString();
-        ws.setUserAgentString(ua+"; Browse_Type /" + "APP");
+        ws.setUserAgentString(ua+" Browse_Type/APP");
+        //ws.setUserAgentString(ua+"; Browse_Type/APP");
         //这种方式是尾部添加的，也可以采用替换的方式
         // 修改ua标识使得web端正确判断
         //String ua = ws.getUserAgentString();
