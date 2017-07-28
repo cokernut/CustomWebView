@@ -115,6 +115,14 @@ public class MyWebView extends WebView {
 //        ws.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
 //        ws.setLoadsImagesAutomatically(true); //支持自动加载图片
 //        ws.setDefaultTextEncodingName("utf-8");//设置编码格式
+        // 修改ua标识使得web端正确判断
+        String ua = ws.getUserAgentString();
+        ws.setUserAgentString(ua+"; APP_TYPE /" + "Android");
+        //这种方式是尾部添加的，也可以采用替换的方式
+        // 修改ua标识使得web端正确判断
+        //String ua = ws.getUserAgentString();
+        //ws.setUserAgentString(ua.replace("Android", "APP Android"));
+
         //注入带有Java方法的JS对象，名字可以自定义（js_obj）
         addJavascriptInterface(new InJavaScriptObj(), "js_obj");
         setWebViewClient(new MyWebViewClient());
