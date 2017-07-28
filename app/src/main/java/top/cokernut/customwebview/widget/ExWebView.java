@@ -25,7 +25,7 @@ import java.util.List;
 
 import top.cokernut.customwebview.util.HtmlUtil;
 
-public class MyWebView extends WebView {
+public class ExWebView extends WebView {
 
     private WebViewInterface mWebViewInterface;
     private OnScrollListener mOnScrollListener;
@@ -37,7 +37,7 @@ public class MyWebView extends WebView {
     private boolean isChangeHref;
 
 
-    public MyWebView(Activity activity) {
+    public ExWebView(Activity activity) {
         super(activity);
         mContext = activity;
         mActivity = activity;
@@ -117,11 +117,11 @@ public class MyWebView extends WebView {
 //        ws.setDefaultTextEncodingName("utf-8");//设置编码格式
         // 修改ua标识使得web端正确判断
         String ua = ws.getUserAgentString();
-        ws.setUserAgentString(ua+"; APP_TYPE /" + "Android");
+        ws.setUserAgentString(ua+"; Browse_Type /" + "APP");
         //这种方式是尾部添加的，也可以采用替换的方式
         // 修改ua标识使得web端正确判断
         //String ua = ws.getUserAgentString();
-        //ws.setUserAgentString(ua.replace("Android", "APP Android"));
+        //ws.setUserAgentString(ua.replace("Android", "APP"));
 
         //注入带有Java方法的JS对象，名字可以自定义（js_obj）
         addJavascriptInterface(new InJavaScriptObj(), "js_obj");

@@ -10,18 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import top.cokernut.customwebview.R;
-import top.cokernut.customwebview.widget.MyWebView;
+import top.cokernut.customwebview.widget.ExWebView;
 
-public class WebViewActivity extends AppCompatActivity implements MyWebView.WebViewInterface, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class WebViewActivity extends AppCompatActivity implements ExWebView.WebViewInterface, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
-    private MyWebView       mWebView;
+    private ExWebView mWebView;
     private ImageView       mBackIv;
     private TextView        mTitleTv;
     private TextView        mMenuTv;
@@ -55,7 +54,7 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
         mRefreshSRL = (SwipeRefreshLayout) findViewById(R.id.srl_refresh);
         mMenuTv.setOnClickListener(this);
         mBackIv.setOnClickListener(this);
-        mWebView    = new MyWebView(this);
+        mWebView    = new ExWebView(this);
         mRefreshSRL.addView(mWebView);
         // 不能在onCreate中设置，这个表示当前是刷新状态，如果一进来就是刷新状态，SwipeRefreshLayout会屏蔽掉下拉事件
         //swipeRefreshLayout.setRefreshing(true);
@@ -65,7 +64,7 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
         mRefreshSRL.setProgressBackgroundColorSchemeResource(android.R.color.white);
         mRefreshSRL.setOnRefreshListener(this);
         mWebView.setWebViewInterface(this);
-        mWebView.setOnScrollListener(new MyWebView.OnScrollListener() {
+        mWebView.setOnScrollListener(new ExWebView.OnScrollListener() {
             @Override
             public void onTop() {
                 mRefreshSRL.setEnabled(true);
@@ -126,7 +125,7 @@ public class WebViewActivity extends AppCompatActivity implements MyWebView.WebV
 
     @Override
     public void error() {
-        
+
     }
 
     private void setMyTitle(String title) {

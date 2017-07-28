@@ -20,12 +20,12 @@ import java.util.List;
 
 import top.cokernut.customwebview.R;
 import top.cokernut.customwebview.util.HtmlUtil;
-import top.cokernut.customwebview.widget.MyWebView;
+import top.cokernut.customwebview.widget.ExWebView;
 
-public class OWWebViewActivity extends AppCompatActivity implements MyWebView.WebViewInterface {
+public class OWWebViewActivity extends AppCompatActivity implements ExWebView.WebViewInterface {
 
     private LinearLayout    mToolbarLl;
-    private MyWebView       mWebView;
+    private ExWebView mWebView;
     private Toolbar         mToolBarTb;
     private ImageView       mBackIv;
     private ImageView       mCloseIv;
@@ -75,7 +75,7 @@ public class OWWebViewActivity extends AppCompatActivity implements MyWebView.We
         mBackIv     = (ImageView) findViewById(R.id.iv_back);
         mCloseIv    = (ImageView) findViewById(R.id.iv_close);
         mTitleTv    = (TextView) findViewById(R.id.tv_title);
-        mWebView = (MyWebView) findViewById(R.id.wv_webview);
+        mWebView = (ExWebView) findViewById(R.id.wv_webview);
         setSupportActionBar(mToolBarTb);
         mWebView.setWebViewInterface(this);
         mWebView.setIsChangeHref(isChangeHref);
